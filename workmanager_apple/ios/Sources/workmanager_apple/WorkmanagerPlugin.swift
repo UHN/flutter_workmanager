@@ -32,6 +32,21 @@ public class WorkmanagerPlugin: FlutterPluginAppLifeCycleDelegate, FlutterPlugin
         operationQueue.addOperation(operation)
     }
 
+    @available(iOS 15.0, *)
+    private static func handleHealthResearchTask(identifier: String, task: BGHealthResearchTask) {
+        let operationQueue = OperationQueue()
+        let operation = createBackgroundOperation(
+            identifier: task.identifier,
+            inputData: nil,
+            backgroundMode: .backgroundHealthResearchTask(identifier: identifier)
+        )
+
+        task.expirationHandler = { operation.cancel() }
+        operation.completionBlock = { task.setTaskCompleted(success: !operation.isCancelled) }
+
+        operationQueue.addOperation(operation)
+    }
+
     @available(iOS 13.0, *)
     public static func handlePeriodicTask(identifier: String, task: BGAppRefreshTask, earliestBeginInSeconds: Double?) {
         guard let callbackHandle = UserDefaultsHelper.getStoredCallbackHandle(),
@@ -117,6 +132,20 @@ public class WorkmanagerPlugin: FlutterPluginAppLifeCycleDelegate, FlutterPlugin
     }
 
     @objc
+    public static func registerHealthResearchTask(withIdentifier identifier: String) {
+        if #available(iOS 15.0, *) {
+            BGTaskScheduler.shared.register(
+                forTaskWithIdentifier: identifier,
+                using: nil
+            ) { task in
+                if let task = task as? BGHealthResearchTask {
+                    handleHealthResearchTask(identifier: identifier, task: task)
+                }
+            }
+        }
+    }
+
+    @objc
     @available(iOS 13.0, *)
     private static func scheduleBackgroundProcessingTask(
         withIdentifier uniqueTaskIdentifier: String,
@@ -135,6 +164,23 @@ public class WorkmanagerPlugin: FlutterPluginAppLifeCycleDelegate, FlutterPlugin
         } catch {
             logInfo("Could not schedule BGProcessingTask identifier:\(uniqueTaskIdentifier) error:\(error.localizedDescription)")
             logInfo("Possible issues can be: running on a simulator instead of a real device, or the task name is not registered")
+        }
+    }
+
+    @objc
+    @available(iOS 15.0, *)
+    private static func scheduleHealthResearchTask(
+        taskIdentifier identifier: String,
+        earliestBeginInSeconds begin: Double
+    ) {
+        let request = BGHealthResearchTaskRequest(identifier: identifier)
+        request.earliestBeginDate = Date(timeIntervalSinceNow: begin)
+
+        do {
+            try BGTaskScheduler.shared.submit(request)
+            logInfo("BGHealthResearchTask submitted \(identifier) earliestBeginInSeconds:\(begin)")
+        } catch {
+            logInfo("Could not schedule BGHealthResearchTask \(error.localizedDescription)")
         }
     }
 
@@ -223,6 +269,36 @@ public class WorkmanagerPlugin: FlutterPluginAppLifeCycleDelegate, FlutterPlugin
                 requiresNetworkConnectivity: requiresNetwork,
                 requiresExternalPower: requiresCharging
             )
+        }
+    }
+
+    func registerHealthResearchTask(request: HealthResearchTaskRequest, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard validateCallbackHandle() else {
+            completion(.failure(createInitializationError()))
+            return
+        }
+
+        if #available(iOS 15.0, *) {
+            let delaySeconds = Double(request.initialDelaySeconds ?? 0)
+            WorkmanagerPlugin.scheduleHealthResearchTask(
+                taskIdentifier: request.uniqueName,
+                earliestBeginInSeconds: delaySeconds
+            )
+
+            let taskInfo = TaskDebugInfo(
+                taskName: request.taskName,
+                uniqueName: request.uniqueName,
+                inputData: request.inputData as? [String: Any],
+                startTime: Date().timeIntervalSince1970
+            )
+            WorkmanagerDebug.getCurrent().onTaskStatusUpdate(taskInfo: taskInfo, status: .scheduled, result: nil)
+            completion(.success(()))
+        } else {
+            completion(.failure(PigeonError(
+                code: "99",
+                message: "HealthResearchTask could not be registered",
+                details: "BGHealthResearchTask is only supported on iOS 15+"
+            )))
         }
     }
 

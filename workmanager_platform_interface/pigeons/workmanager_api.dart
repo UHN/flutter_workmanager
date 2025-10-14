@@ -251,6 +251,21 @@ class ProcessingTaskRequest {
   bool? requiresCharging;
 }
 
+// iOS specific request for BGHealthResearchTask
+class HealthResearchTaskRequest {
+  HealthResearchTaskRequest({
+    required this.uniqueName,
+    required this.taskName,
+    this.inputData,
+    this.initialDelaySeconds,
+  });
+
+  String uniqueName;
+  String taskName;
+  Map<String?, Object?>? inputData;
+  int? initialDelaySeconds;
+}
+
 // Host API (Flutter calls native)
 @HostApi()
 abstract class WorkmanagerHostApi {
@@ -265,6 +280,9 @@ abstract class WorkmanagerHostApi {
 
   @async
   void registerProcessingTask(ProcessingTaskRequest request);
+
+  @async
+  void registerHealthResearchTask(HealthResearchTaskRequest request);
 
   @async
   void cancelByUniqueName(String uniqueName);
