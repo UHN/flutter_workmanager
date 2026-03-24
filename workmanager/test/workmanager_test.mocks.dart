@@ -24,6 +24,7 @@ import 'package:workmanager_platform_interface/workmanager_platform_interface.da
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
+// ignore_for_file: invalid_use_of_internal_member
 
 /// A class which mocks [Workmanager].
 ///
@@ -159,6 +160,29 @@ class MockWorkmanager extends _i1.Mock implements _i2.Workmanager {
             #initialDelay: initialDelay,
             #inputData: inputData,
             #constraints: constraints,
+          },
+        ),
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+
+  @override
+  _i3.Future<void> registerHealthResearchTask(
+    String? uniqueName,
+    String? taskName, {
+    Duration? initialDelay,
+    Map<String, dynamic>? inputData,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #registerHealthResearchTask,
+          [
+            uniqueName,
+            taskName,
+          ],
+          {
+            #initialDelay: initialDelay,
+            #inputData: inputData,
           },
         ),
         returnValue: _i3.Future<void>.value(),

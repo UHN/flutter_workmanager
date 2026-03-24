@@ -281,6 +281,30 @@ class Workmanager {
     );
   }
 
+  /// Schedule a health research background task, currently only available on iOS 15+.
+  ///
+  /// Health research tasks use [BGHealthResearchTask] and are designed for
+  /// apps that need to process HealthKit data in the background. The system
+  /// grants these tasks more runtime than standard background tasks.
+  ///
+  /// Requires iOS 15.0 or later. Will throw [UnsupportedError] on Android.
+  ///
+  /// For iOS see Apple docs:
+  /// [iOS 15+ BGHealthResearchTask](https://developer.apple.com/documentation/backgroundtasks/bghealthresearchtask/)
+  Future<void> registerHealthResearchTask(
+    String uniqueName,
+    String taskName, {
+    Duration? initialDelay,
+    Map<String, dynamic>? inputData,
+  }) async {
+    return _platform.registerHealthResearchTask(
+      uniqueName,
+      taskName,
+      initialDelay: initialDelay,
+      inputData: inputData,
+    );
+  }
+
   /// Cancels task by [uniqueName]
   Future<void> cancelByUniqueName(String uniqueName) async =>
       _platform.cancelByUniqueName(uniqueName);
