@@ -1,3 +1,9 @@
+## 0.9.2
+
+ - **FIX**(workmanager_apple): Correct SPM structure and product name for Flutter compatibility.
+ - **FEAT**: expose BGHealthResearchTask through public Dart API.
+ - **FEAT**: add BGHealthResearchTask support for iOS 15+.
+
 ## 0.9.1+2
 
  - **FIX**: Android initialization bug and iOS 14 availability annotations (#647).

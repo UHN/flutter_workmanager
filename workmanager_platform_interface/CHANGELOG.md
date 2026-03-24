@@ -1,3 +1,8 @@
+## 0.9.2
+
+ - **FEAT**: expose BGHealthResearchTask through public Dart API.
+ - **FEAT**: add BGHealthResearchTask support for iOS 15+.
+
 ## 0.9.1+1
 
  - **FIX**: Android initialization bug and iOS 14 availability annotations (#647).

@@ -1,3 +1,7 @@
+## 0.9.1
+
+ - **FEAT**: expose BGHealthResearchTask through public Dart API.
+
 ## 0.9.0+3
 
  - Update a dependency to the latest release.

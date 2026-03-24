@@ -3,6 +3,46 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2026-03-24
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`workmanager` - `v0.9.1`](#workmanager---v091)
+ - [`workmanager_android` - `v0.9.1`](#workmanager_android---v091)
+ - [`workmanager_apple` - `v0.9.2`](#workmanager_apple---v092)
+ - [`workmanager_platform_interface` - `v0.9.2`](#workmanager_platform_interface---v092)
+
+---
+
+#### `workmanager` - `v0.9.1`
+
+ - **FEAT**: expose BGHealthResearchTask through public Dart API.
+
+#### `workmanager_android` - `v0.9.1`
+
+ - **FEAT**: expose BGHealthResearchTask through public Dart API.
+ - **FEAT**: add BGHealthResearchTask support for iOS 15+.
+
+#### `workmanager_apple` - `v0.9.2`
+
+ - **FIX**(workmanager_apple): Correct SPM structure and product name for Flutter compatibility.
+ - **FEAT**: expose BGHealthResearchTask through public Dart API.
+ - **FEAT**: add BGHealthResearchTask support for iOS 15+.
+
+#### `workmanager_platform_interface` - `v0.9.2`
+
+ - **FEAT**: expose BGHealthResearchTask through public Dart API.
+ - **FEAT**: add BGHealthResearchTask support for iOS 15+.
+
+
 ## 2025-08-31
 
 ### Changes
