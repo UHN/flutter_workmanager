@@ -116,6 +116,28 @@ abstract class WorkmanagerPlatform extends PlatformInterface {
         'registerProcessingTask() has not been implemented.');
   }
 
+  /// Register a health research task (iOS 15+ only).
+  ///
+  /// Health research tasks use [BGHealthResearchTask] and are designed for
+  /// apps that need to process HealthKit data in the background. The system
+  /// grants these tasks more runtime than standard background tasks.
+  ///
+  /// Requires iOS 15.0 or later. Will throw [UnsupportedError] on Android.
+  ///
+  /// [uniqueName] is the unique identifier for this task.
+  /// [taskName] is the name of the task that will be passed to the callback.
+  /// [initialDelay] is the delay before the task is executed.
+  /// [inputData] is optional data that will be passed to the callback.
+  Future<void> registerHealthResearchTask(
+    String uniqueName,
+    String taskName, {
+    Duration? initialDelay,
+    Map<String, dynamic>? inputData,
+  }) {
+    throw UnimplementedError(
+        'registerHealthResearchTask() has not been implemented.');
+  }
+
   /// Cancel a task by its unique name.
   Future<void> cancelByUniqueName(String uniqueName) {
     throw UnimplementedError('cancelByUniqueName() has not been implemented.');
@@ -202,6 +224,18 @@ class _PlaceholderImplementation extends WorkmanagerPlatform {
     Duration? initialDelay,
     Map<String, dynamic>? inputData,
     Constraints? constraints,
+  }) async {
+    throw UnimplementedError(
+      'No implementation found for workmanager on this platform.',
+    );
+  }
+
+  @override
+  Future<void> registerHealthResearchTask(
+    String uniqueName,
+    String taskName, {
+    Duration? initialDelay,
+    Map<String, dynamic>? inputData,
   }) async {
     throw UnimplementedError(
       'No implementation found for workmanager on this platform.',

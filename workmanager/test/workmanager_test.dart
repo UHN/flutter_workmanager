@@ -47,5 +47,48 @@ void main() {
       verify(GetIt.I<Workmanager>().initialize(testCallBackDispatcher));
       verify(GetIt.I<Workmanager>().cancelByUniqueName(testTaskName));
     });
+
+    test("registerHealthResearchTask - It calls methods on the mocked class",
+        () {
+      when(GetIt.I<Workmanager>().registerHealthResearchTask(
+        'com.example.health-task',
+        'healthTask',
+      )).thenAnswer((_) => Future.value());
+
+      GetIt.I<Workmanager>().registerHealthResearchTask(
+        'com.example.health-task',
+        'healthTask',
+      );
+
+      verify(GetIt.I<Workmanager>().registerHealthResearchTask(
+        'com.example.health-task',
+        'healthTask',
+      ));
+    });
+
+    test(
+        "registerHealthResearchTask with optional params - It calls methods on the mocked class",
+        () {
+      when(GetIt.I<Workmanager>().registerHealthResearchTask(
+        'com.example.health-task',
+        'healthTask',
+        initialDelay: const Duration(minutes: 10),
+        inputData: {'dataType': 'heartRate'},
+      )).thenAnswer((_) => Future.value());
+
+      GetIt.I<Workmanager>().registerHealthResearchTask(
+        'com.example.health-task',
+        'healthTask',
+        initialDelay: const Duration(minutes: 10),
+        inputData: {'dataType': 'heartRate'},
+      );
+
+      verify(GetIt.I<Workmanager>().registerHealthResearchTask(
+        'com.example.health-task',
+        'healthTask',
+        initialDelay: const Duration(minutes: 10),
+        inputData: {'dataType': 'heartRate'},
+      ));
+    });
   });
 }

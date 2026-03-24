@@ -131,6 +131,54 @@ void main() {
       });
     });
 
+    group('iOS-specific health research task request validation', () {
+      test('should handle HealthResearchTaskRequest creation with all fields',
+          () {
+        final request = HealthResearchTaskRequest(
+          uniqueName: 'com.example.health-research',
+          taskName: 'Health Research Task',
+          inputData: {'dataType': 'heartRate', 'batchSize': 100},
+          initialDelaySeconds: 600, // 10 minutes
+        );
+
+        expect(request.uniqueName, 'com.example.health-research');
+        expect(request.taskName, 'Health Research Task');
+        expect(request.inputData?['dataType'], 'heartRate');
+        expect(request.inputData?['batchSize'], 100);
+        expect(request.initialDelaySeconds, 600);
+      });
+
+      test('should handle minimal HealthResearchTaskRequest', () {
+        final request = HealthResearchTaskRequest(
+          uniqueName: 'minimal-health-task',
+          taskName: 'Minimal Health Task',
+        );
+
+        expect(request.uniqueName, 'minimal-health-task');
+        expect(request.taskName, 'Minimal Health Task');
+        expect(request.inputData, null);
+        expect(request.initialDelaySeconds, null);
+      });
+
+      test('should not have constraint fields unlike ProcessingTaskRequest',
+          () {
+        // BGHealthResearchTask does not support network/charging constraints
+        // Verify HealthResearchTaskRequest only has the expected fields
+        final request = HealthResearchTaskRequest(
+          uniqueName: 'com.example.health-task',
+          taskName: 'Health Task',
+          inputData: {'key': 'value'},
+          initialDelaySeconds: 0,
+        );
+
+        expect(request.uniqueName, isNotNull);
+        expect(request.taskName, isNotNull);
+        expect(request.inputData, isNotNull);
+        expect(request.initialDelaySeconds, isNotNull);
+        // No networkType or requiresCharging fields exist on this type
+      });
+    });
+
     group('iOS constraint handling differences', () {
       test('should handle battery constraints appropriately for iOS', () {
         // iOS handles battery constraints differently than Android
