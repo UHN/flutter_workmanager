@@ -1,3 +1,7 @@
+## 0.9.2+1
+
+ - **FIX**: use path deps between packages to eliminate dependency_overrides.
+
 ## 0.9.2
 
  - **FIX**(workmanager_apple): Correct SPM structure and product name for Flutter compatibility.

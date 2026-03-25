@@ -1,3 +1,7 @@
+## 0.9.1+1
+
+ - **FIX**: use path deps between packages to eliminate dependency_overrides.
+
 ## 0.9.1
 
  - **FEAT**: expose BGHealthResearchTask through public Dart API.
