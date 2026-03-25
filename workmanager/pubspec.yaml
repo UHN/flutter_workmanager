@@ -13,9 +13,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  workmanager_platform_interface: ^0.9.2
-  workmanager_android: ^0.9.1
-  workmanager_apple: ^0.9.2
+  workmanager_platform_interface:
+    path: ../workmanager_platform_interface
+  workmanager_android:
+    path: ../workmanager_android
+  workmanager_apple:
+    path: ../workmanager_apple
 
 dev_dependencies:
   test: ^1.25.15
