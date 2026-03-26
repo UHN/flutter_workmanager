@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2026-03-26
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`workmanager_apple` - `v0.9.2+2`](#workmanager_apple---v0922)
+ - [`workmanager` - `v0.9.1+2`](#workmanager---v0912)
+
+Packages with dependency updates only:
+
+> Packages listed below depend on other packages in this workspace that have had changes. Their versions have been incremented to bump the minimum dependency versions of the packages they depend upon in this project.
+
+ - `workmanager` - `v0.9.1+2`
+
+---
+
+#### `workmanager_apple` - `v0.9.2+2`
+
+ - **FIX**: correct BGHealthResearchTask availability guards from iOS 15 to iOS 17.
+
+
 ## 2026-03-25
 
 ### Changes

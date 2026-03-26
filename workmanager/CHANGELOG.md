@@ -1,3 +1,7 @@
+## 0.9.1+2
+
+ - Update a dependency to the latest release.
+
 ## 0.9.1+1
 
  - **FIX**: use path deps between packages to eliminate dependency_overrides.

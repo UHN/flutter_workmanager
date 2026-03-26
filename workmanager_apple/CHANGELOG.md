@@ -1,3 +1,7 @@
+## 0.9.2+2
+
+ - **FIX**: correct BGHealthResearchTask availability guards from iOS 15 to iOS 17.
+
 ## 0.9.2+1
 
  - **FIX**: use path deps between packages to eliminate dependency_overrides.
