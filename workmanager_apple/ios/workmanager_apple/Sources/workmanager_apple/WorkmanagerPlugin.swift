@@ -32,7 +32,7 @@ public class WorkmanagerPlugin: FlutterPluginAppLifeCycleDelegate, FlutterPlugin
         operationQueue.addOperation(operation)
     }
 
-    @available(iOS 15.0, *)
+    @available(iOS 17.0, *)
     private static func handleHealthResearchTask(identifier: String, task: BGHealthResearchTask) {
         let operationQueue = OperationQueue()
         let operation = createBackgroundOperation(
@@ -133,7 +133,7 @@ public class WorkmanagerPlugin: FlutterPluginAppLifeCycleDelegate, FlutterPlugin
 
     @objc
     public static func registerHealthResearchTask(withIdentifier identifier: String) {
-        if #available(iOS 15.0, *) {
+        if #available(iOS 17.0, *) {
             BGTaskScheduler.shared.register(
                 forTaskWithIdentifier: identifier,
                 using: nil
@@ -168,7 +168,7 @@ public class WorkmanagerPlugin: FlutterPluginAppLifeCycleDelegate, FlutterPlugin
     }
 
     @objc
-    @available(iOS 15.0, *)
+    @available(iOS 17.0, *)
     private static func scheduleHealthResearchTask(
         taskIdentifier identifier: String,
         earliestBeginInSeconds begin: Double
@@ -278,7 +278,7 @@ public class WorkmanagerPlugin: FlutterPluginAppLifeCycleDelegate, FlutterPlugin
             return
         }
 
-        if #available(iOS 15.0, *) {
+        if #available(iOS 17.0, *) {
             let delaySeconds = Double(request.initialDelaySeconds ?? 0)
             WorkmanagerPlugin.scheduleHealthResearchTask(
                 taskIdentifier: request.uniqueName,
@@ -297,7 +297,7 @@ public class WorkmanagerPlugin: FlutterPluginAppLifeCycleDelegate, FlutterPlugin
             completion(.failure(PigeonError(
                 code: "99",
                 message: "HealthResearchTask could not be registered",
-                details: "BGHealthResearchTask is only supported on iOS 15+"
+                details: "BGHealthResearchTask is only supported on iOS 17+"
             )))
         }
     }
